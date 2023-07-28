@@ -4,29 +4,32 @@
 
 <?php
 //Kiểm tra thư mục tồn tại chưa có thì tạo mới
-if(file_exists('data.txt'))
-echo 'file tồn tại';
-else
-echo 'file không tồn tại';
-?>
+$file = @fopen('data.txt', 'r');
+if (!$file)
+    echo "Mở file không thành công";
+else {
+    echo "mở file thành  công"
+}
 
- <?php
+//Kiểm tra file có cho phép ghi không
+
 $file = "data.txt";
 if(is_writable($file)) {
   echo ("$file is writable");
 } else {
   echo ("$file is not writable");
 }
-?>
 
-
-<?php
-$file = fopen("data.txt","w");
-echo fwrite($file,"Xin chào");
-//đóng file
-fclose($file);
-//xóa file
-unlink("data.txt");
+//Ghi file với nội dung: xin chào 
+$file = @fopen('data.txt', 'w');
+if (!$file)
+    echo "Mở file không thành công";
+else {
+    $data = 'xin chào';
+    fwrite($file, $data);
+    fclose($file);//Đóng file
+    unlink($file);//Xóa file
+}
 ?>
 </body>
 </html>
